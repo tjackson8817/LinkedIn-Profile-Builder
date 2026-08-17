@@ -1,0 +1,48 @@
+Please execute this task directly — do the writing now, rather than first describing your plan or asking permission to proceed. If a genuine capability limitation prevents part of this (e.g. no image generation available for the banners), say so plainly and do everything else you actually can.
+
+Act as a LinkedIn profile strategist optimizing my profile specifically for a job search — not general networking content. I am at upper-level management (Director and above). Every section must be genuinely impactful to three audiences at once: a recruiter scanning quickly, a hiring manager evaluating fit, and LinkedIn's own and any employer's ATS/search indexing — while still reading as a real, specific person rather than a keyword-stuffed template.
+
+Here is my resume / professional background:
+
+Marcus Reyes
+Director of Supply Chain, Halston Industrial Group (2020-present)
+- Lead a team of 12 across procurement, logistics, and inventory planning for a $400M industrial parts distributor
+- Cut carrying costs 18% over two years by renegotiating vendor terms and consolidating the supplier base from 140 to 95 vendors
+- Led implementation of a new WMS across 3 regional distribution centers, on time and under the approved budget
+- Built and now run the monthly S&OP process with Sales and Finance leadership
+
+Senior Manager, Supply Chain, Beacon Manufacturing (2016-2020)
+- Managed inbound logistics for 2 manufacturing plants
+- Reduced average supplier lead time from 34 to 21 days through a dual-sourcing initiative
+- No formally tracked cost-savings metric for this role - focus was process reliability, not cost reduction
+
+B.S. Supply Chain Management, Penn State
+
+- Target role/title: VP of Supply Chain
+- Target industry: industrial distribution
+
+Build the following sections. Respect every character limit stated — these are LinkedIn's real current field limits, not suggestions:
+
+**1. Headline** (max 220 characters desktop / 240 mobile — but only roughly the first 70 characters show in search results and mobile previews, so front-load your strongest role + value signal there, and use the remaining space for additional searchable keywords a recruiter or hiring manager would actually type for this role). Recruiter- and hiring-manager-searchable, not just a job title.
+
+**2. About / Summary section** (max 2,600 characters). Structure: two short paragraphs followed by three bullets, followed by contact information.
+   - **Paragraph 1:** who I am and what I do, written to grab a recruiter's attention. LinkedIn only shows roughly the first 200-300 characters before the "See more" cutoff — the opening sentence of this paragraph has to work as a genuine hook on its own, not just a topic sentence.
+   - **Paragraph 2:** how I help — why someone should want me, not just what my job title was.
+   - **Three bullets:** each one supporting and expanding on how I deliver. Where a real, specific number, dollar figure, or percentage exists in my background for that particular point, lead with it. Where it genuinely doesn't, write a strong, specific qualitative bullet instead — do not invent a metric to fit the format.
+   - **Contact info line:** close with how to reach me.
+
+**3. Experience section rewrites** for my 3 most relevant/recent positions. For each:
+   - **Job Title** (max 100 characters): use my actual title from my background, then use remaining characters to add a more current/searchable framing of that role if one genuinely applies — never a fabricated title.
+   - **Description** (max 2,000 characters): open with a short description of the company (and the specific department/team where relevant), then three bullets in the same style as the About section bullets above — a real number/dollar/percentage where one genuinely exists for that specific accomplishment, a strong qualitative bullet where it doesn't.
+
+**4. Skills section** (max 80 characters per skill). Not a generic or canned list — research and select the skills that recruiters, hiring managers, and ATS systems are actually searching for right now, specifically for someone targeting VP of Supply Chain in industrial distribution. Ground this in real current signal (live job postings for this role, category/industry skill demand), not a static list memorized from training. Prioritize skills I can genuinely support with something in my actual background — don't list a skill just because it's trending if nothing in my background supports it.
+
+**5. Custom Vanity URL** (5-30 characters). Suggest one based on my actual name.
+
+**6. Recommendation Request Guidance** — do NOT write recommendation text as if it came from someone else; that would mean putting fabricated words in a real colleague's or manager's mouth, which is not acceptable under any framing. Instead: suggest 2-3 real types of people worth asking (e.g. a direct manager, a cross-functional peer, a direct report), and for each, 2-3 specific talking points I could suggest they touch on — grounded in my actual accomplishments above — to make their real recommendation more specific and useful than a generic "great to work with" note.
+
+Non-negotiable rules, no exceptions:
+- Never invent a number, dollar figure, percentage, metric, title, employer, or credential that isn't genuinely supported by what I gave you above. A strong qualitative bullet is always an acceptable substitute for a fabricated metric.
+- Never write recommendation text and present it as if a real colleague wrote it.
+- Never claim a specific skill is "the #1 most in-demand skill on LinkedIn" or similar unless you can actually ground that in real, current search results — don't recite a memorized list as if it were current fact.
+- State the character count for each section you write, so I can confirm it's within LinkedIn's real limit before I paste it in.
