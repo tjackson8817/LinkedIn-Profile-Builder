@@ -217,7 +217,19 @@
         <label class="check-opt"><input type="checkbox" id="genSkills" checked> Skills section <span class="tag">80 char per skill</span></label>
         <label class="check-opt"><input type="checkbox" id="genVanity" checked> Custom URL suggestion</label>
         <label class="check-opt"><input type="checkbox" id="genRecs"> Recommendation request guidance <span class="tag">not ghostwritten</span></label>
-        <label class="check-opt"><input type="checkbox" id="genBanners"> 3 profile banner images <span class="tag tag-claude">Claude only</span></label>
+        <label class="check-opt"><input type="checkbox" id="genBanners"> Profile banner images <span class="tag tag-claude">Claude only</span></label>
+        <div class="sub-field" id="bannerSubField" style="display:none; max-width:100%;">
+          <label style="font-weight:500;font-size:12.5px;display:block;margin-bottom:5px;">How many banners</label>
+          <input type="number" id="numBanners" value="3" min="1" max="5" style="max-width:120px;">
+          <label style="font-weight:500;font-size:12.5px;display:block;margin:10px 0 5px;">Visual style</label>
+          <div class="radio-row">
+            <label class="radio-opt"><input type="radio" name="bannerStyle" value="decide" checked> Let Claude decide</label>
+            <label class="radio-opt"><input type="radio" name="bannerStyle" value="abstract"> Abstract/geometric</label>
+            <label class="radio-opt"><input type="radio" name="bannerStyle" value="motif"> Industry motif (e.g. skyline, network, circuit)</label>
+            <label class="radio-opt"><input type="radio" name="bannerStyle" value="minimal"> Minimalist</label>
+          </div>
+          <p class="hint" style="margin-top:4px;">These are programmatically generated (Python/Pillow) — geometric shapes, gradients, and line patterns, not photorealistic images or stock photos.</p>
+        </div>
 
         <p class="hint" style="margin-top:2px;">Independent checkboxes — check whichever combination you want for this run.</p>
 
@@ -280,6 +292,8 @@ function buildPrompt(){
   const doVanity = checked('genVanity');
   const doRecs = checked('genRecs');
   const doBanners = checked('genBanners');
+  const numBanners = val('numBanners') || '3';
+  const bannerStyle = radioVal('bannerStyle') || 'decide';
   const outputFormat = radioVal('outputFormat') || 'chat';
 
   if(!resume && !attachInstead) return null;
@@ -362,7 +376,15 @@ function buildPrompt(){
   }
 
   if(doBanners){
-    lines.push(`**${n}. Three LinkedIn Banner Images** — generate three distinct, downloadable .png banner images (LinkedIn banner dimensions), each a visual representation of my industry/role/business — not too busy or text-heavy, professional and on-brand for ${levelLabel}${targetIndustry ? ` in ${targetIndustry}` : ''}. This step only works if you're running this prompt directly in Claude — it depends on Claude's own image-generation capability and won't work if this prompt is pasted into a different AI tool.`);
+    const styleText = {
+      decide: "choose whatever visual approach best fits my industry and level",
+      abstract: "abstract/geometric shapes and gradients, not literal industry imagery",
+      motif: "an industry motif relevant to my field (e.g. a skyline, network/circuit pattern, or similar) rendered abstractly, not a literal photo",
+      minimal: "a minimalist, clean design — sparse shapes, generous negative space, no clutter"
+    }[bannerStyle];
+    const countWord = numBanners === '1' ? 'one' : numBanners;
+    const distinctText = numBanners === '1' ? '' : 'distinct, ';
+    lines.push(`**${n}. LinkedIn Banner Image${numBanners === '1' ? '' : 's'}** — generate ${countWord} ${distinctText}downloadable .png banner image${numBanners === '1' ? '' : 's'} (LinkedIn banner dimensions, 1584x396px)${numBanners === '1' ? ',' : ', each'} a visual representation of my industry/role/business — not too busy or text-heavy, professional and on-brand for ${levelLabel}${targetIndustry ? ` in ${targetIndustry}` : ''}. Visual style: ${styleText}. These should be programmatically generated (e.g. via Python's Pillow library) — geometric shapes, gradients, and line patterns, not an attempt at a photorealistic image. This step only works if you're running this prompt directly in Claude — it depends on Claude's own code execution capability and won't work if this prompt is pasted into a different AI tool.`);
     lines.push("");
     n++;
   }
@@ -395,6 +417,10 @@ function toggleRoleScopeField(){
   document.getElementById('numRoles').style.display = isCustom ? 'inline-block' : 'none';
 }
 
+function toggleBannerSubField(){
+  document.getElementById('bannerSubField').style.display = checked('genBanners') ? 'block' : 'none';
+}
+
 document.querySelectorAll('input, textarea').forEach(el => {
   el.addEventListener('input', render);
   el.addEventListener('change', render);
@@ -404,6 +430,9 @@ document.querySelectorAll('input[name="roleScope"]').forEach(el => {
   el.addEventListener('change', toggleRoleScopeField);
 });
 toggleRoleScopeField();
+
+document.getElementById('genBanners').addEventListener('change', toggleBannerSubField);
+toggleBannerSubField();
 
 document.getElementById('copyBtn').addEventListener('click', () => {
   const prompt = buildPrompt();
@@ -444,6 +473,9 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('genVanity').checked = true;
   document.getElementById('genRecs').checked = false;
   document.getElementById('genBanners').checked = false;
+  document.getElementById('numBanners').value = '3';
+  document.querySelector('input[name="bannerStyle"][value="decide"]').checked = true;
+  toggleBannerSubField();
   document.getElementById('attachInstead').checked = false;
   document.querySelector('input[name="outputFormat"][value="chat"]').checked = true;
   render();
