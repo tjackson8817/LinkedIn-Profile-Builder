@@ -57,7 +57,7 @@ Seven independent checkboxes — check any combination for a given run:
    - **Three bullets** — each supporting and expanding on how you deliver. A real number, dollar figure, or percentage leads each bullet *where one genuinely exists* in your background for that specific point. Where it doesn't, Claude writes a strong, specific qualitative bullet instead of inventing a metric.
    - **Contact line** — closes with how to reach you.
 
-3. **Experience section rewrites** *(adjustable count, default 3 positions)* — for each position: job title (100 characters, your real title plus a more current/searchable framing if one genuinely applies) and description (2,000 characters, opening with a short company/department blurb, then three bullets in the same real-number-or-strong-qualitative style as the About section).
+3. **Experience section rewrites** — how many positions to rewrite is a three-way choice: **3 most recent** (default), **All positions**, or a **Custom number** (reveals a number field, 1–20). "All positions" produces a longer response — worth it for a shorter work history, slower to generate for a long one. For each position rewritten: job title (100 characters, your real title plus a more current/searchable framing if one genuinely applies) and description (2,000 characters, opening with a short company/department blurb, then three bullets in the same real-number-or-strong-qualitative style as the About section).
 
 4. **Skills section** *(80 characters per skill)* — not a static or generic "top skills" list. The generated prompt instructs Claude to research what recruiters, hiring managers, and ATS systems are actually searching for right now, specifically for your stated target role and industry — grounded in real current signal (live postings, category demand), not a list memorized from training. Skills are only included if something in your real background actually supports them.
 
@@ -65,11 +65,15 @@ Seven independent checkboxes — check any combination for a given run:
 
 6. **Recommendation Request Guidance** *(off by default)* — this does **not** write recommendation text as if it came from someone else. Putting fabricated words in a real colleague's or manager's mouth isn't acceptable under any framing, full stop. Instead, this suggests 2–3 real types of people worth asking (a direct manager, a cross-functional peer, a direct report) and, for each, specific talking points grounded in your actual accomplishments that you could suggest they touch on — making their real recommendation more specific and useful than a generic "great to work with" note.
 
-7. **Three profile banner images** *(off by default)* — three distinct `.png` banners, professional and on-brand for your level and industry, not too busy or text-heavy. This only works when you paste the prompt directly into Claude — it depends on Claude's own image-generation capability and won't produce anything in a different AI tool.
+7. **Profile banner images** *(off by default)* — checking this reveals two more choices: **how many banners** (1–5, default 3) and a **visual style** — Let Claude decide (default), Abstract/geometric, Industry motif (e.g. a skyline, network, or circuit pattern, rendered abstractly rather than as a literal photo), or Minimalist. These are **programmatically generated** — geometric shapes, gradients, and line patterns built with Python's Pillow library, the same mechanism the LinkedIn Article Share Builder tool uses for its artwork, not an attempt at a photorealistic image or stock photo. This only works when you paste the prompt directly into Claude — it depends on Claude's own code execution capability and won't produce anything in a different AI tool.
+
+### Output format
+
+A separate choice from the checkboxes above: **Text in chat** (default) or **Downloadable Word document**. Word document requires the Code execution and file creation setting (Settings → Capabilities) and, like the banners, only works when run directly in Claude — pasting into another AI tool falls back to a chat response regardless of this choice. Banner images, if requested, always come through as separate `.png` files either way — a Word document can't hold them as editable images the way LinkedIn actually needs them uploaded.
 
 ## What you'll get back
 
-A response organized by whichever sections you toggled on, each with its character count stated so you can confirm it fits before pasting into LinkedIn. This is a chat response (plus banner image files, if requested) — there's no separate downloadable document for the text sections.
+A response organized by whichever sections you toggled on, each with its character count stated so you can confirm it fits before pasting into LinkedIn, formatted as either a chat response or a downloadable Word document per your Output Format choice above — plus separate banner image files, if requested, regardless of that choice.
 
 ## A note on honesty
 

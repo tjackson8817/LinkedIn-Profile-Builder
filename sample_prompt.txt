@@ -31,7 +31,7 @@ Build the following sections. Respect every character limit stated — these are
    - **Three bullets:** each one supporting and expanding on how I deliver. Where a real, specific number, dollar figure, or percentage exists in my background for that particular point, lead with it. Where it genuinely doesn't, write a strong, specific qualitative bullet instead — do not invent a metric to fit the format.
    - **Contact info line:** close with how to reach me.
 
-**3. Experience section rewrites** for my 3 most relevant/recent positions. For each:
+**3. Experience section rewrites** for all positions in my background. For each:
    - **Job Title** (max 100 characters): use my actual title from my background, then use remaining characters to add a more current/searchable framing of that role if one genuinely applies — never a fabricated title.
    - **Description** (max 2,000 characters): open with a short description of the company (and the specific department/team where relevant), then three bullets in the same style as the About section bullets above — a real number/dollar/percentage where one genuinely exists for that specific accomplishment, a strong qualitative bullet where it doesn't.
 
@@ -39,7 +39,9 @@ Build the following sections. Respect every character limit stated — these are
 
 **5. Custom Vanity URL** (5-30 characters). Suggest one based on my actual name.
 
-**6. Recommendation Request Guidance** — do NOT write recommendation text as if it came from someone else; that would mean putting fabricated words in a real colleague's or manager's mouth, which is not acceptable under any framing. Instead: suggest 2-3 real types of people worth asking (e.g. a direct manager, a cross-functional peer, a direct report), and for each, 2-3 specific talking points I could suggest they touch on — grounded in my actual accomplishments above — to make their real recommendation more specific and useful than a generic "great to work with" note.
+**6. LinkedIn Banner Images** — generate 2 distinct, downloadable .png banner images (LinkedIn banner dimensions, 1584x396px), each a visual representation of my industry/role/business — not too busy or text-heavy, professional and on-brand for upper-level management (Director and above) in industrial distribution. Visual style: an industry motif relevant to my field (e.g. a skyline, network/circuit pattern, or similar) rendered abstractly, not a literal photo. These should be programmatically generated (e.g. via Python's Pillow library) — geometric shapes, gradients, and line patterns, not an attempt at a photorealistic image. This step only works if you're running this prompt directly in Claude — it depends on Claude's own code execution capability and won't work if this prompt is pasted into a different AI tool.
+
+Output format: produce the text sections above (Headline, About, Experience, Skills, Vanity URL, Recommendation Guidance — whichever I've asked for) as a downloadable Word document, not a chat response — proper headings for each section and clean, readable formatting throughout. If banner images were requested, those still come through as separate downloadable .png files regardless of this choice — a Word document can't contain them as editable images in the way LinkedIn needs.
 
 Non-negotiable rules, no exceptions:
 - Never invent a number, dollar figure, percentage, metric, title, employer, or credential that isn't genuinely supported by what I gave you above. A strong qualitative bullet is always an acceptable substitute for a fabricated metric.

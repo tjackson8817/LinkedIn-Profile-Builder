@@ -1,6 +1,6 @@
 # LinkedIn Profile Builder — Sample Output
 
-*This is what Claude actually returns when the prompt in `sample_prompt.txt` is run. Generated for the same fictional candidate (Marcus Reyes, Director of Supply Chain targeting a VP role) used in that sample prompt. Character counts are stated for each section, exactly as the generated prompt instructs Claude to do — so you can confirm every section actually fits LinkedIn's real limit before pasting it in.*
+*This is what Claude actually returns when the prompt in `sample_prompt.txt` is run. Generated for the same fictional candidate (Marcus Reyes, Director of Supply Chain targeting a VP role) used in that sample prompt — this run exercises the "All positions" experience scope, 2 industry-motif banners, and Word document output, so the sample reflects the tool's full current feature set rather than just the defaults. Character counts are stated for each section, exactly as the generated prompt instructs Claude to do — so you can confirm every section actually fits LinkedIn's real limit before pasting it in. In an actual run, sections 1–5 below would appear inside the downloadable Word document itself, not as chat text — they're shown here as plain text for readability in this reference file.*
 
 ---
 
@@ -32,7 +32,7 @@
 
 ## 3. Experience Section Rewrites
 
-Two positions rewritten — the candidate's resume listed two roles total, so both are covered rather than padding to a third that doesn't exist.
+"All positions" was selected for this run — the candidate's resume lists two roles total, so both are covered. (With only two roles, the output is identical whether "3 most recent" or "All positions" is chosen; the difference matters more for a longer work history.)
 
 ### Position 1
 **Job Title — 96 characters** (max 100)
@@ -97,15 +97,21 @@ No preference was stated, so this is suggested from the candidate's real name pl
 
 ---
 
-## 6. Recommendation Request Guidance
+## 6. LinkedIn Banner Images
 
-*Not ghostwritten text — real people to ask, and real talking points grounded in the accomplishments above, so their actual recommendation is more specific than a generic one.*
+*2 banners requested, Industry motif style — programmatically generated (Python's Pillow library), not photorealistic images. Delivered as separate downloadable `.png` files (1584×396px, LinkedIn's actual banner dimensions) regardless of the Word document output choice below — a Word document can't hold them as editable images the way LinkedIn needs them uploaded.*
 
-**1. Your direct manager or VP of Operations at Halston** — ask them to speak to the WMS rollout specifically: it was a multi-site initiative delivered on time and under budget, which is exactly the kind of execution-under-pressure story a recommendation should carry that a resume bullet can't.
+**Banner 1 — Distribution network motif:** a hub-and-spoke network across the right two-thirds of the frame, representing a distribution center network, with the left third left clear for LinkedIn's profile-photo overlay.
 
-**2. A Finance or Sales leader you work with through the S&OP process** — ask them to speak to cross-functional reliability: you built and still run that process, so a peer from the *other* side of the table vouching for how dependable that collaboration is carries real weight.
+**Banner 2 — Supply chain flow motif:** three horizontal flow lanes with in-transit markers, over a warehouse skyline silhouette — representing goods movement through a distribution network.
 
-**3. A direct report from your team of 12** — ask them to speak to how you actually lead, day to day — team development and how you operate under pressure are things a manager's recommendation often can't capture as credibly as someone who reports to you.
+Both files are included alongside this sample: `sample_banner_1_distribution_network.png` and `sample_banner_2_supply_chain_flow.png`.
+
+---
+
+## Output Format for This Run
+
+**Downloadable Word document** was selected (rather than the chat-text default). In an actual run, sections 1–5 above would be delivered as a formatted `.docx` — proper headings, not markdown — with the 2 banner `.png` files delivered separately alongside it, exactly as shown here.
 
 ---
 
