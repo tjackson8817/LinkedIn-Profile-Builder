@@ -203,9 +203,15 @@
         <label class="check-opt"><input type="checkbox" id="genAbout" checked> About / Summary section <span class="tag">2,600 char max</span></label>
 
         <label class="check-opt"><input type="checkbox" id="genExperience" checked> Experience section rewrites <span class="tag">100/2,000 char per role</span></label>
-        <div class="sub-field">
-          <label for="numRoles" style="font-weight:500;font-size:12.5px;">Number of positions to rewrite</label>
-          <input type="number" id="numRoles" value="3" min="1" max="10">
+        <div class="sub-field" style="max-width:100%;">
+          <label style="font-weight:500;font-size:12.5px;display:block;margin-bottom:5px;">How many positions to rewrite</label>
+          <div class="radio-row">
+            <label class="radio-opt"><input type="radio" name="roleScope" value="3" checked> 3 most recent</label>
+            <label class="radio-opt"><input type="radio" name="roleScope" value="all"> All positions</label>
+            <label class="radio-opt"><input type="radio" name="roleScope" value="custom"> Custom number</label>
+          </div>
+          <input type="number" id="numRoles" value="3" min="1" max="20" style="display:none; margin-top:6px; max-width:120px;">
+          <p class="hint" style="margin-top:4px;">"All positions" produces a longer response — worth it for a shorter work history, slower for a long one.</p>
         </div>
 
         <label class="check-opt"><input type="checkbox" id="genSkills" checked> Skills section <span class="tag">80 char per skill</span></label>
@@ -214,6 +220,15 @@
         <label class="check-opt"><input type="checkbox" id="genBanners"> 3 profile banner images <span class="tag tag-claude">Claude only</span></label>
 
         <p class="hint" style="margin-top:2px;">Independent checkboxes — check whichever combination you want for this run.</p>
+
+        <div class="field" style="margin-top:14px;">
+          <label>Output format</label>
+          <div class="radio-row">
+            <label class="radio-opt"><input type="radio" name="outputFormat" value="chat" checked> Text in chat</label>
+            <label class="radio-opt"><input type="radio" name="outputFormat" value="docx"> Downloadable Word document</label>
+          </div>
+          <p class="hint">"Downloadable Word document" requires the Code execution and file creation setting (Settings → Capabilities) and only works in Claude itself — pasting into another AI tool will fall back to a chat response regardless of this choice. Banner images (if checked) are always delivered as separate .png files either way.</p>
+        </div>
       </fieldset>
 
       <button class="btn-danger" id="resetBtn">Reset all fields</button>
@@ -259,11 +274,13 @@ function buildPrompt(){
   const doHeadline = checked('genHeadline');
   const doAbout = checked('genAbout');
   const doExperience = checked('genExperience');
-  const numRoles = val('numRoles') || '3';
+  const roleScope = radioVal('roleScope') || '3';
+  const numRoles = roleScope === 'custom' ? (val('numRoles') || '3') : roleScope;
   const doSkills = checked('genSkills');
   const doVanity = checked('genVanity');
   const doRecs = checked('genRecs');
   const doBanners = checked('genBanners');
+  const outputFormat = radioVal('outputFormat') || 'chat';
 
   if(!resume && !attachInstead) return null;
   if(!doHeadline && !doAbout && !doExperience && !doSkills && !doVanity && !doRecs && !doBanners) return null;
@@ -318,7 +335,8 @@ function buildPrompt(){
   }
 
   if(doExperience){
-    lines.push(`**${n}. Experience section rewrites** for my ${numRoles} most relevant/recent positions. For each:
+    const scopeText = roleScope === 'all' ? 'all positions in my background' : `my ${numRoles} most relevant/recent positions`;
+    lines.push(`**${n}. Experience section rewrites** for ${scopeText}. For each:
    - **Job Title** (max 100 characters): use my actual title from my background, then use remaining characters to add a more current/searchable framing of that role if one genuinely applies — never a fabricated title.
    - **Description** (max 2,000 characters): open with a short description of the company (and the specific department/team where relevant), then three bullets in the same style as the About section bullets above — a real number/dollar/percentage where one genuinely exists for that specific accomplishment, a strong qualitative bullet where it doesn't.`);
     lines.push("");
@@ -349,6 +367,11 @@ function buildPrompt(){
     n++;
   }
 
+  if(outputFormat === 'docx'){
+    lines.push(`Output format: produce the text sections above (Headline, About, Experience, Skills, Vanity URL, Recommendation Guidance — whichever I've asked for) as a downloadable Word document, not a chat response — proper headings for each section and clean, readable formatting throughout. If banner images were requested, those still come through as separate downloadable .png files regardless of this choice — a Word document can't contain them as editable images in the way LinkedIn needs.`);
+    lines.push("");
+  }
+
   lines.push(`Non-negotiable rules, no exceptions:`);
   lines.push(`- Never invent a number, dollar figure, percentage, metric, title, employer, or credential that isn't genuinely supported by what I gave you above. A strong qualitative bullet is always an acceptable substitute for a fabricated metric.`);
   lines.push(`- Never write recommendation text and present it as if a real colleague wrote it.`);
@@ -367,10 +390,20 @@ function render(){
   }
 }
 
+function toggleRoleScopeField(){
+  const isCustom = radioVal('roleScope') === 'custom';
+  document.getElementById('numRoles').style.display = isCustom ? 'inline-block' : 'none';
+}
+
 document.querySelectorAll('input, textarea').forEach(el => {
   el.addEventListener('input', render);
   el.addEventListener('change', render);
 });
+
+document.querySelectorAll('input[name="roleScope"]').forEach(el => {
+  el.addEventListener('change', toggleRoleScopeField);
+});
+toggleRoleScopeField();
 
 document.getElementById('copyBtn').addEventListener('click', () => {
   const prompt = buildPrompt();
@@ -401,6 +434,8 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   if(!confirm('Clear all fields on the form?')) return;
   document.querySelectorAll('input[type=text], textarea').forEach(el => el.value = '');
   document.getElementById('numRoles').value = '3';
+  document.querySelector('input[name="roleScope"][value="3"]').checked = true;
+  toggleRoleScopeField();
   document.querySelector('input[name="mgmtLevel"][value="mid"]').checked = true;
   document.getElementById('genHeadline').checked = true;
   document.getElementById('genAbout').checked = true;
@@ -410,6 +445,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('genRecs').checked = false;
   document.getElementById('genBanners').checked = false;
   document.getElementById('attachInstead').checked = false;
+  document.querySelector('input[name="outputFormat"][value="chat"]').checked = true;
   render();
 });
 
