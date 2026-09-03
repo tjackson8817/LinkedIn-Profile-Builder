@@ -49,7 +49,7 @@ You can also do both — paste some text and attach a file — the generated pro
 
 Seven independent checkboxes — check any combination for a given run:
 
-1. **Headline** *(220 characters desktop / 240 mobile)* — but only roughly the first 70 characters show in search results and mobile previews, so the generated prompt explicitly instructs Claude to front-load the strongest role + value signal there, using the rest of the space for additional searchable keywords.
+1. **Headline** *(220 characters desktop / 240 mobile, up to 5 options)* — choose how many distinct headline options to generate (1–5, default 3). Each option takes a genuinely different angle — one led by a specific accomplishment/number, one led by role + target keywords, one led by scope/seniority — rather than minor rewordings of the same line, so you're actually choosing between approaches, not just wording. Only roughly the first 70 characters show in search results and mobile previews, so the generated prompt explicitly instructs Claude to front-load the strongest role + value signal there in every option, using the rest of the space for additional searchable keywords. Each option states its own character count.
 
 2. **About / Summary section** *(2,600 characters max)* — structured as:
    - **Paragraph 1** — who you are and what you do, written to grab a recruiter's attention. LinkedIn only shows roughly the first 200–300 characters before the "See more" cutoff, so this opening sentence has to work as a genuine hook on its own, not just a topic sentence.

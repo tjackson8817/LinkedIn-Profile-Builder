@@ -200,6 +200,11 @@
         <legend>What to generate</legend>
 
         <label class="check-opt"><input type="checkbox" id="genHeadline" checked> Headline <span class="tag">220 char desktop / 240 mobile</span></label>
+        <div class="sub-field" style="max-width:100%;">
+          <label style="font-weight:500;font-size:12.5px;display:block;margin-bottom:5px;">How many headline options</label>
+          <input type="number" id="numHeadlines" value="3" min="1" max="5" style="max-width:120px;">
+          <p class="hint" style="margin-top:4px;">Get up to 5 distinct headlines to choose from instead of just one — each takes a genuinely different angle (e.g. accomplishment-led vs. keyword-led vs. title-led), not minor rewordings of the same line.</p>
+        </div>
         <label class="check-opt"><input type="checkbox" id="genAbout" checked> About / Summary section <span class="tag">2,600 char max</span></label>
 
         <label class="check-opt"><input type="checkbox" id="genExperience" checked> Experience section rewrites <span class="tag">100/2,000 char per role</span></label>
@@ -323,6 +328,7 @@ function buildPrompt(){
   const vanityPref = val('vanityPref');
 
   const doHeadline = checked('genHeadline');
+  const numHeadlines = val('numHeadlines') || '3';
   const doAbout = checked('genAbout');
   const doExperience = checked('genExperience');
   const roleScope = radioVal('roleScope') || '3';
@@ -372,7 +378,8 @@ function buildPrompt(){
   let n = 1;
 
   if(doHeadline){
-    lines.push(`**${n}. Headline** (max 220 characters desktop / 240 mobile — but only roughly the first 70 characters show in search results and mobile previews, so front-load your strongest role + value signal there, and use the remaining space for additional searchable keywords a recruiter or hiring manager would actually type for this role). Recruiter- and hiring-manager-searchable, not just a job title.`);
+    const countWord = numHeadlines === '1' ? 'one' : numHeadlines;
+    lines.push(`**${n}. Headline** — give me ${countWord} distinct option${numHeadlines === '1' ? '' : 's'} to choose from (max 220 characters desktop / 240 mobile each — but only roughly the first 70 characters show in search results and mobile previews, so front-load your strongest role + value signal there, and use the remaining space for additional searchable keywords a recruiter or hiring manager would actually type for this role). Recruiter- and hiring-manager-searchable, not just a job title.${numHeadlines === '1' ? '' : ` Each option should take a genuinely different angle — for example, one led by a specific accomplishment/number, one led by role + target keywords, one led by scope/seniority — not ${numHeadlines} minor rewordings of the same line. Label each option (Option 1, Option 2, etc.) and state its own character count.`}`);
     lines.push("");
     n++;
   }
@@ -517,6 +524,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   toggleRoleScopeField();
   document.querySelector('input[name="mgmtLevel"][value="mid"]').checked = true;
   document.getElementById('genHeadline').checked = true;
+  document.getElementById('numHeadlines').value = '3';
   document.getElementById('genAbout').checked = true;
   document.getElementById('genExperience').checked = true;
   document.getElementById('genSkills').checked = true;
