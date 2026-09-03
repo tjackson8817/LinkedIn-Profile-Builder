@@ -215,6 +215,7 @@
         </div>
 
         <label class="check-opt"><input type="checkbox" id="genSkills" checked> Skills section <span class="tag">80 char per skill</span></label>
+        <p class="hint" style="margin:2px 0 0 24px;">Live research is always the primary source. A 100-skill generic reference pool is included as a last-resort fallback, used only if Claude has no live search access this session.</p>
         <label class="check-opt"><input type="checkbox" id="genVanity" checked> Custom URL suggestion</label>
         <label class="check-opt"><input type="checkbox" id="genRecs"> Recommendation request guidance <span class="tag">not ghostwritten</span></label>
         <label class="check-opt"><input type="checkbox" id="genBanners"> Profile banner images <span class="tag tag-claude">Claude only</span></label>
@@ -266,6 +267,44 @@
 
 <script>
 const promptTextEl = document.getElementById('promptText');
+
+// Generic, industry/function-agnostic fallback pool — last-resort only, used when live search isn't
+// available in the session the generated prompt is pasted into. Not a substitute for live research.
+const FALLBACK_SKILLS_TEXT = `Leadership & People
+Team Leadership, People Management, Cross-Functional Leadership, Talent Development, Coaching & Mentoring, Performance Management, Organizational Leadership, Change Management, Executive Leadership, Succession Planning
+
+Strategy & Operations
+Strategic Planning, Business Strategy, Operational Excellence, Process Improvement, Business Process Optimization, Continuous Improvement, Lean Six Sigma, Risk Management, Vendor Management, Supply Chain Management, Procurement, Contract Negotiation, P&L Management, Budget Management, Cost Reduction Strategy
+
+Project & Program Management
+Project Management, Program Management, Agile Methodology, Scrum, Portfolio Management, Stakeholder Management, Resource Planning, Cross-Functional Collaboration
+
+Data & Analytics
+Data Analysis, Data-Driven Decision Making, Business Intelligence, KPI Development & Tracking, Forecasting, Financial Modeling, Reporting & Analytics, SQL, Power BI, Tableau, Advanced Excel
+
+Digital & Technical
+Digital Transformation, ERP Systems (SAP/Oracle), CRM Systems (Salesforce), Cloud Computing Fundamentals, Cybersecurity Awareness, AI & Automation Tools, Systems Implementation, IT Project Management
+
+Sales & Customer
+Sales Strategy, Business Development, Account Management, Client Relationship Management, Customer Success, Negotiation, Revenue Growth Strategy, Go-to-Market Strategy
+
+Marketing & Brand
+Marketing Strategy, Brand Management, Digital Marketing, Content Strategy, Market Research, Product Marketing, Social Media Strategy, SEO/SEM
+
+HR & Talent
+Talent Acquisition, Workforce Planning, Employee Engagement, Diversity, Equity & Inclusion, Organizational Development, HR Compliance, Compensation & Benefits Strategy
+
+Finance & Business Acumen
+Financial Analysis, Financial Planning & Analysis (FP&A), Revenue Forecasting, Cost Accounting, Investment Analysis, Mergers & Acquisitions (M&A)
+
+Operations-Specific
+Inventory Management, Logistics Management, Warehouse Management Systems (WMS), Manufacturing Operations, Quality Assurance, Supplier Relations, Distribution Strategy
+
+Communication & Influence
+Executive Communication, Public Speaking, Presentation Skills, Cross-Cultural Communication, Conflict Resolution, Influencing Without Authority
+
+Innovation & Growth
+Innovation Management, Product Development, Strategic Partnerships, Market Expansion Strategy, Competitive Analysis, Growth Strategy`;
 
 function val(id){ return document.getElementById(id).value.trim(); }
 function checked(id){ return document.getElementById(id).checked; }
@@ -358,7 +397,7 @@ function buildPrompt(){
   }
 
   if(doSkills){
-    lines.push(`**${n}. Skills section** (max 80 characters per skill). Not a generic or canned list — research and select the skills that recruiters, hiring managers, and ATS systems are actually searching for right now, specifically for someone targeting ${targetRole || 'my target role'}${targetIndustry ? ` in ${targetIndustry}` : ''}. Ground this in real current signal (live job postings for this role, category/industry skill demand), not a static list memorized from training. Prioritize skills I can genuinely support with something in my actual background — don't list a skill just because it's trending if nothing in my background supports it.`);
+    lines.push(`**${n}. Skills section** (max 80 characters per skill). Not a generic or canned list — research and select the skills that recruiters, hiring managers, and ATS systems are actually searching for right now, specifically for someone targeting ${targetRole || 'my target role'}${targetIndustry ? ` in ${targetIndustry}` : ''}. Ground this in real current signal (live job postings for this role, category/industry skill demand), not a static list memorized from training. Prioritize skills I can genuinely support with something in my actual background — don't list a skill just because it's trending if nothing in my background supports it. If you have live web search available in this session, use it — that's always the better source since it reflects what's actually being searched for right now, not a fixed list. Only if you have no live search access at all (e.g. this prompt is running in a tool without web search), fall back to the reference pool at the very end of this prompt — and even then, treat it only as a pool to select *from*, filtered down to what's targeted and genuinely supported by my background, never pasted in wholesale.`);
     lines.push("");
     n++;
   }
@@ -391,6 +430,17 @@ function buildPrompt(){
 
   if(outputFormat === 'docx'){
     lines.push(`Output format: produce the text sections above (Headline, About, Experience, Skills, Vanity URL, Recommendation Guidance — whichever I've asked for) as a downloadable Word document, not a chat response — proper headings for each section and clean, readable formatting throughout. If banner images were requested, those still come through as separate downloadable .png files regardless of this choice — a Word document can't contain them as editable images in the way LinkedIn needs.`);
+    lines.push("");
+  }
+
+  if(doSkills){
+    lines.push(`---`);
+    lines.push("");
+    lines.push(`**Fallback skills reference pool (use ONLY if you have no live web search access this session):**`);
+    lines.push("");
+    lines.push(FALLBACK_SKILLS_TEXT);
+    lines.push("");
+    lines.push(`This pool is generic across management functions and industries — it is not targeted to my specific role, and it is a last-resort substitute for live research, not a shortcut around it. If you used this pool, say so plainly next to the Skills section (e.g. "live search wasn't available, so this list was cross-checked against this fallback pool") so I know which source it came from.`);
     lines.push("");
   }
 
