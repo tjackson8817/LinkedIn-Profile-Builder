@@ -1,0 +1,48 @@
+Please execute this task directly — do the writing now, rather than first describing your plan or asking permission to proceed. If a genuine capability limitation prevents part of this (e.g. no image generation available for the banners), say so plainly and do everything else you actually can.
+
+Act as a LinkedIn profile strategist optimizing my profile specifically for a job search — not general networking content. I am at mid-level management. Every section must be genuinely impactful to three audiences at once: a recruiter scanning quickly, a hiring manager evaluating fit, and LinkedIn's own and any employer's ATS/search indexing — while still reading as a real, specific person rather than a keyword-stuffed template.
+
+Here is my resume / professional background:
+
+Priya Nair
+Operations Manager, BrightPath Fulfillment (2021-present)
+- Manage a team of 8 across 2 fulfillment centers handling e-commerce order processing and shipping
+- Reduced average order processing time by 22% by redesigning pick-path routing in both facilities
+- Led a new warehouse management system (WMS) rollout at our primary facility, delivered on schedule
+- Own vendor relationships for packaging suppliers and 3 regional shipping carriers
+
+Operations Supervisor, QuickShip Logistics (2017-2021)
+- Supervised warehouse floor operations for a 3rd-party logistics facility, promoted from Shift Supervisor in 2018
+- Improved on-time shipment rate from 91% to 97% over 3 years through process and staffing changes
+- No formally tracked cost-savings metric for this role - focus was on-time performance and floor execution
+
+A.A.S. Logistics and Supply Chain Management, Community College of Denver
+
+- Target role/title: Senior Operations Manager
+- Target industry: e-commerce fulfillment
+
+Build the following sections. Respect every character limit stated — these are LinkedIn's real current field limits, not suggestions:
+
+**1. Headline** (max 220 characters desktop / 240 mobile — but only roughly the first 70 characters show in search results and mobile previews, so front-load your strongest role + value signal there, and use the remaining space for additional searchable keywords a recruiter or hiring manager would actually type for this role). Recruiter- and hiring-manager-searchable, not just a job title.
+
+**2. About / Summary section** (max 2,600 characters). Structure: two short paragraphs followed by three bullets, followed by contact information.
+   - **Paragraph 1:** who I am and what I do, written to grab a recruiter's attention. LinkedIn only shows roughly the first 200-300 characters before the "See more" cutoff — the opening sentence of this paragraph has to work as a genuine hook on its own, not just a topic sentence.
+   - **Paragraph 2:** how I help — why someone should want me, not just what my job title was.
+   - **Three bullets:** each one supporting and expanding on how I deliver. Where a real, specific number, dollar figure, or percentage exists in my background for that particular point, lead with it. Where it genuinely doesn't, write a strong, specific qualitative bullet instead — do not invent a metric to fit the format.
+   - **Contact info line:** close with how to reach me.
+
+**3. Experience section rewrites** for my 3 most relevant/recent positions. For each:
+   - **Job Title** (max 100 characters): use my actual title from my background, then use remaining characters to add a more current/searchable framing of that role if one genuinely applies — never a fabricated title.
+   - **Description** (max 2,000 characters): open with a short description of the company (and the specific department/team where relevant), then three bullets in the same style as the About section bullets above — a real number/dollar/percentage where one genuinely exists for that specific accomplishment, a strong qualitative bullet where it doesn't.
+
+**4. Skills section** (max 80 characters per skill). Not a generic or canned list — research and select the skills that recruiters, hiring managers, and ATS systems are actually searching for right now, specifically for someone targeting Senior Operations Manager in e-commerce fulfillment. Ground this in real current signal (live job postings for this role, category/industry skill demand), not a static list memorized from training. Prioritize skills I can genuinely support with something in my actual background — don't list a skill just because it's trending if nothing in my background supports it.
+
+**5. Custom Vanity URL** (5-30 characters). Suggest one based on my actual name.
+
+Output format: produce the text sections above (Headline, About, Experience, Skills, Vanity URL, Recommendation Guidance — whichever I've asked for) as a downloadable Word document, not a chat response — proper headings for each section and clean, readable formatting throughout. If banner images were requested, those still come through as separate downloadable .png files regardless of this choice — a Word document can't contain them as editable images in the way LinkedIn needs.
+
+Non-negotiable rules, no exceptions:
+- Never invent a number, dollar figure, percentage, metric, title, employer, or credential that isn't genuinely supported by what I gave you above. A strong qualitative bullet is always an acceptable substitute for a fabricated metric.
+- Never write recommendation text and present it as if a real colleague wrote it.
+- Never claim a specific skill is "the #1 most in-demand skill on LinkedIn" or similar unless you can actually ground that in real, current search results — don't recite a memorized list as if it were current fact.
+- State the character count for each section you write, so I can confirm it's within LinkedIn's real limit before I paste it in.

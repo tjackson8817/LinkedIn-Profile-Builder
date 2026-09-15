@@ -1,6 +1,6 @@
 # LinkedIn Profile Builder — Sample Output
 
-*This is what Claude actually returns when the prompt in `sample_prompt.txt` is run. Generated for the same fictional candidate (Marcus Reyes, Director of Supply Chain targeting a VP role) used in that sample prompt — this run exercises the "All positions" experience scope, 2 industry-motif banners, and Word document output, so the sample reflects the tool's full current feature set rather than just the defaults. Character counts are stated for each section, exactly as the generated prompt instructs Claude to do — so you can confirm every section actually fits LinkedIn's real limit before pasting it in. In an actual run, sections 1–5 below would appear inside the downloadable Word document itself, not as chat text — they're shown here as plain text for readability in this reference file.*
+*This is what Claude actually returns when the prompt in `sample_prompt.txt` is run. Generated for the same fictional candidate (Marcus Reyes, Director of Supply Chain targeting a VP role) used in that sample prompt — this run exercises the "All positions" experience scope and 2 industry-motif banners, so the sample reflects the tool's full current feature set rather than just the defaults. Character counts are stated for each section, exactly as the generated prompt instructs Claude to do — so you can confirm every section actually fits LinkedIn's real limit before pasting it in. In an actual run, sections 1–5 below would appear inside the downloadable Word document itself, not as chat text — they're shown here as plain text for readability in this reference file.*
 
 ---
 
@@ -99,7 +99,7 @@ No preference was stated, so this is suggested from the candidate's real name pl
 
 ## 6. LinkedIn Banner Images
 
-*2 banners requested, Industry motif style — programmatically generated (Python's Pillow library), not photorealistic images. Delivered as separate downloadable `.png` files (1584×396px, LinkedIn's actual banner dimensions) regardless of the Word document output choice below — a Word document can't hold them as editable images the way LinkedIn needs them uploaded.*
+*2 banners requested, Industry motif style — programmatically generated (Python's Pillow library), not photorealistic images. Delivered as separate downloadable `.png` files (1584×396px, LinkedIn's actual banner dimensions) alongside the Word document — a Word document can't hold them as editable images the way LinkedIn needs them uploaded.*
 
 **Banner 1 — Distribution network motif:** a hub-and-spoke network across the right two-thirds of the frame, representing a distribution center network, with the left third left clear for LinkedIn's profile-photo overlay.
 
@@ -111,7 +111,7 @@ Both files are included alongside this sample: `sample_banner_1_distribution_net
 
 ## Output Format for This Run
 
-**Downloadable Word document** was selected (rather than the chat-text default). In an actual run, sections 1–5 above would be delivered as a formatted `.docx` — proper headings, not markdown — with the 2 banner `.png` files delivered separately alongside it, exactly as shown here.
+Every run always produces a **downloadable Word document** — there's no chat-text option anymore. Sections 1–5 above would be delivered as a formatted `.docx` — proper headings, not markdown — with the 2 banner `.png` files delivered separately alongside it, exactly as shown here.
 
 ---
 

@@ -42,6 +42,7 @@ To get a PDF export of your current LinkedIn profile: open your profile → clic
 - This tool **generates a prompt** — it does not itself call any AI model or produce any file. You paste the output into a separate Claude conversation to get the actual rewritten content.
 - Every section instructs Claude to state its own character count, so you can confirm it fits LinkedIn's real limit before pasting it in.
 - Nothing is invented. Quantify only where a real number, dollar figure, or percentage genuinely exists in your background — a strong qualitative bullet is always the correct substitute for a fabricated metric, never the other way around.
+- Every result comes back as a downloadable Word document — this requires the **Code execution and file creation** setting in Claude (Settings → Capabilities).
 - Banner image generation and the skills-research step both depend on capabilities specific to Claude — running this prompt in a different AI tool will still produce the text sections, but likely not those two.
 
 ## Files in this repo

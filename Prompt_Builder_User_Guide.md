@@ -69,13 +69,13 @@ Seven independent checkboxes — check any combination for a given run:
 
 7. **Profile banner images** *(off by default)* — checking this reveals two more choices: **how many banners** (1–5, default 3) and a **visual style** — Let Claude decide (default), Abstract/geometric, Industry motif (e.g. a skyline, network, or circuit pattern, rendered abstractly rather than as a literal photo), or Minimalist. These are **programmatically generated** — geometric shapes, gradients, and line patterns built with Python's Pillow library, the same mechanism the LinkedIn Article Share Builder tool uses for its artwork, not an attempt at a photorealistic image or stock photo. This only works when you paste the prompt directly into Claude — it depends on Claude's own code execution capability and won't produce anything in a different AI tool.
 
-### Output format
+### Output
 
-A separate choice from the checkboxes above: **Text in chat** (default) or **Downloadable Word document**. Word document requires the Code execution and file creation setting (Settings → Capabilities) and, like the banners, only works when run directly in Claude — pasting into another AI tool falls back to a chat response regardless of this choice. Banner images, if requested, always come through as separate `.png` files either way — a Word document can't hold them as editable images the way LinkedIn actually needs them uploaded.
+Every result always comes back as a **downloadable Word document (.docx)** — there's no chat-text option anymore. This requires the Code execution and file creation setting (Settings → Capabilities) and, like the banners, only works when run directly in Claude — pasting into another AI tool falls back to a chat response regardless. Banner images, if requested, always come through as separate `.png` files alongside it — a Word document can't hold them as editable images the way LinkedIn actually needs them uploaded.
 
 ## What you'll get back
 
-A response organized by whichever sections you toggled on, each with its character count stated so you can confirm it fits before pasting into LinkedIn, formatted as either a chat response or a downloadable Word document per your Output Format choice above — plus separate banner image files, if requested, regardless of that choice.
+A response organized by whichever sections you toggled on, each with its character count stated so you can confirm it fits before pasting into LinkedIn, formatted as a downloadable Word document — plus separate banner image files, if requested.
 
 ## A note on honesty
 

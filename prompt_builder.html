@@ -239,14 +239,7 @@
 
         <p class="hint" style="margin-top:2px;">Independent checkboxes — check whichever combination you want for this run.</p>
 
-        <div class="field" style="margin-top:14px;">
-          <label>Output format</label>
-          <div class="radio-row">
-            <label class="radio-opt"><input type="radio" name="outputFormat" value="chat" checked> Text in chat</label>
-            <label class="radio-opt"><input type="radio" name="outputFormat" value="docx"> Downloadable Word document</label>
-          </div>
-          <p class="hint">"Downloadable Word document" requires the Code execution and file creation setting (Settings → Capabilities) and only works in Claude itself — pasting into another AI tool will fall back to a chat response regardless of this choice. Banner images (if checked) are always delivered as separate .png files either way.</p>
-        </div>
+        <p class="hint" style="margin-top:14px;">Results always come back as a downloadable Word document (.docx) — this requires the Code execution and file creation setting (Settings → Capabilities) and only works in Claude itself; pasting into another AI tool will fall back to a chat response regardless. Banner images (if checked) are always delivered as separate .png files either way.</p>
       </fieldset>
 
       <button class="btn-danger" id="resetBtn">Reset all fields</button>
@@ -339,7 +332,6 @@ function buildPrompt(){
   const doBanners = checked('genBanners');
   const numBanners = val('numBanners') || '3';
   const bannerStyle = radioVal('bannerStyle') || 'decide';
-  const outputFormat = radioVal('outputFormat') || 'chat';
 
   if(!resume && !attachInstead) return null;
   if(!doHeadline && !doAbout && !doExperience && !doSkills && !doVanity && !doRecs && !doBanners) return null;
@@ -435,10 +427,8 @@ function buildPrompt(){
     n++;
   }
 
-  if(outputFormat === 'docx'){
-    lines.push(`Output format: produce the text sections above (Headline, About, Experience, Skills, Vanity URL, Recommendation Guidance — whichever I've asked for) as a downloadable Word document, not a chat response — proper headings for each section and clean, readable formatting throughout. If banner images were requested, those still come through as separate downloadable .png files regardless of this choice — a Word document can't contain them as editable images in the way LinkedIn needs.`);
-    lines.push("");
-  }
+  lines.push(`Output format: produce the text sections above (Headline, About, Experience, Skills, Vanity URL, Recommendation Guidance — whichever I've asked for) as a downloadable Word document, not a chat response — proper headings for each section and clean, readable formatting throughout. If banner images were requested, those still come through as separate downloadable .png files regardless of this choice — a Word document can't contain them as editable images in the way LinkedIn needs.`);
+  lines.push("");
 
   if(doSkills){
     lines.push(`---`);
@@ -535,7 +525,6 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   document.querySelector('input[name="bannerStyle"][value="decide"]').checked = true;
   toggleBannerSubField();
   document.getElementById('attachInstead').checked = false;
-  document.querySelector('input[name="outputFormat"][value="chat"]').checked = true;
   render();
 });
 
