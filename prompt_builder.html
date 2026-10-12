@@ -165,12 +165,24 @@
         <div class="field">
           <label for="targetRole">Target role or title <span class="tag">recommended</span></label>
           <input type="text" id="targetRole" placeholder="e.g. VP of Operations, Director of Product, Chief Marketing Officer">
-          <p class="hint">Anchors your headline, About section, and skills to what recruiters searching for this specific role actually type.</p>
+          <p class="hint">Anchors your headline, About section, and skills to what recruiters searching for this specific role actually type. Not sure yet? Leave it blank — Claude will identify the 2–3 roles your background most credibly supports and build around those.</p>
         </div>
 
         <div class="field">
           <label for="targetIndustry">Target industry <span class="tag">optional</span></label>
           <input type="text" id="targetIndustry" placeholder="e.g. healthcare technology, industrial manufacturing">
+        </div>
+
+        <div class="field">
+          <label for="toolsCerts">Tools, platforms, certifications &amp; methods you've used <span class="tag">optional</span></label>
+          <textarea id="toolsCerts" rows="3" placeholder="e.g. SAP S/4HANA, Power BI, Salesforce, PMP, Lean Six Sigma Green Belt, Agile/Scrum — anything you've genuinely used that isn't spelled out on your resume."></textarea>
+          <p class="hint">Resumes usually leave these out, and they're exactly what recruiters filter on. Listing them here is the easiest honest way to fill out a 100-skill list.</p>
+        </div>
+
+        <div class="field">
+          <label for="jobPostings">Job postings you're aligned to <span class="tag">optional</span></label>
+          <textarea id="jobPostings" rows="5" placeholder="Paste one or more full job postings, separated by a line of dashes (---). Skip this if you're just starting your search — Claude will research demand for your target role instead."></textarea>
+          <p class="hint">Not required. If you add postings, Claude counts which skills recur across them and weights your skills and keywords toward what those employers actually ask for. 5+ postings gives the strongest signal.</p>
         </div>
 
         <div class="field">
@@ -181,6 +193,12 @@
             <label class="radio-opt"><input type="radio" name="mgmtLevel" value="exec"> Executive (VP / C-suite)</label>
           </div>
           <p class="hint">Calibrates tone and scope — an executive headline and About section read differently than a director-level one, even with similar substance.</p>
+        </div>
+
+        <div class="field">
+          <label for="locationPref">Location &amp; work arrangement <span class="tag">optional</span></label>
+          <input type="text" id="locationPref" placeholder="e.g. Dallas–Fort Worth, hybrid or remote; open to relocating for the right role">
+          <p class="hint">Used for the Open to Work settings. Leave blank and Claude will flag it for you to fill in rather than guess.</p>
         </div>
 
         <div class="field">
@@ -220,8 +238,17 @@
         </div>
 
         <label class="check-opt"><input type="checkbox" id="genSkills" checked> Skills section <span class="tag">80 char per skill</span></label>
-        <p class="hint" style="margin:2px 0 0 24px;">Live research is always the primary source. A 100-skill generic reference pool is included as a last-resort fallback, used only if Claude has no live search access this session.</p>
+        <div class="sub-field" id="skillsSubField" style="max-width:100%;">
+          <label style="font-weight:500;font-size:12.5px;display:block;margin-bottom:5px;">How many skills</label>
+          <div class="radio-row">
+            <label class="radio-opt"><input type="radio" name="skillScope" value="full" checked> Full build — up to 100 (LinkedIn's max)</label>
+            <label class="radio-opt"><input type="radio" name="skillScope" value="focused"> Focused list (15–25)</label>
+          </div>
+          <p class="hint" style="margin-top:4px;">Full build ranks every skill into four tiers, says which position to attach each one to, picks your Top 5 to feature, flags gaps, and never pads to hit 100. Live research is always the primary source; a generic reference pool is included only as a last-resort fallback if Claude has no live search access.</p>
+        </div>
         <label class="check-opt"><input type="checkbox" id="genVanity" checked> Custom URL suggestion</label>
+        <label class="check-opt"><input type="checkbox" id="genOpenToWork" checked> Open to Work settings <span class="tag">up to 5 job titles</span></label>
+        <p class="hint" style="margin:-4px 0 10px 24px;">The job titles, locations, and visibility you set under Open to → Finding a new job. Recruiters filter on these directly.</p>
         <label class="check-opt"><input type="checkbox" id="genRecs"> Recommendation request guidance <span class="tag">not ghostwritten</span></label>
         <label class="check-opt"><input type="checkbox" id="genBanners"> Profile banner images <span class="tag tag-claude">Claude only</span></label>
         <div class="sub-field" id="bannerSubField" style="display:none; max-width:100%;">
@@ -259,9 +286,18 @@
 
       <div class="note-box">
         <b>Two things worth knowing:</b><br>
-        1. Banner image generation only works when you paste this prompt into Claude directly — other AI tools can't execute that part, since it depends on Claude's own image-generation capability.<br>
+        1. Banner images and the Word document only work when you paste this prompt into Claude directly — both depend on Claude's code execution and file creation capability, which other AI tools don't run the same way.<br>
         2. Recommendation guidance never ghostwrites words for someone else to sign — that would mean putting fabricated quotes in a real colleague's mouth. It only tells you who to ask and what to suggest they emphasize.
       </div>
+    </div>
+
+    <div class="card" id="followUpCard">
+      <h3 style="margin:0 0 4px 0;font-size:15px;color:var(--navy);">Step 2: answer the gap questions</h3>
+      <p class="hint" style="margin:0 0 10px 0;">The 100-skill build ends with numbered yes/no questions (Q1, Q2…) about skills you probably have but didn't document. Once you've read your results, copy this into the <b>same</b> Claude conversation, fill in your answers, and send it. Each honest "yes" becomes another skill.</p>
+      <div class="btn-row">
+        <button class="btn-primary" id="copyFollowUpBtn" type="button">Copy follow-up prompt</button>
+      </div>
+      <div id="followUpText" style="white-space:pre-wrap;font-family:'SFMono-Regular',Consolas,Menlo,monospace;font-size:12.5px;background:#12202c;color:#e3edf5;padding:16px;border-radius:8px;line-height:1.5;"></div>
     </div>
   </div>
 </div>
@@ -314,35 +350,51 @@ function radioVal(name){
   return el ? el.value : '';
 }
 
+// Keeps number fields inside their stated range even if someone types e.g. 50.
+function clampNum(id, min, max, def){
+  const n = parseInt(val(id), 10);
+  if(isNaN(n)) return String(def);
+  return String(Math.min(max, Math.max(min, n)));
+}
+
+const TOOLS_HEADER = `Tools, platforms, certifications, and methods I've genuinely used (count these as evidence of my background, on the same footing as my resume):`;
+const POSTINGS_HEADER = `Job postings I'm aligned to (use these as demand signal for skills and keywords only — they are NOT evidence of what I've done):`;
+const NO_TARGET_LINE = `I haven't settled on a target role yet — this may be the first step in my search. Before writing anything else, identify the 2-3 role titles my background most credibly supports, list them at the top of the document with one line on why each fits, and use them to anchor every section below.`;
+
 function buildPrompt(){
   const resume = val('resume');
   const currentProfile = val('currentProfile');
   const attachInstead = checked('attachInstead');
   const targetRole = val('targetRole');
   const targetIndustry = val('targetIndustry');
+  const toolsCerts = val('toolsCerts');
+  const jobPostings = val('jobPostings');
   const mgmtLevel = radioVal('mgmtLevel');
   const vanityPref = val('vanityPref');
+  const locationPref = val('locationPref');
 
   const doHeadline = checked('genHeadline');
-  const numHeadlines = val('numHeadlines') || '3';
+  const numHeadlines = clampNum('numHeadlines', 1, 5, 3);
   const doAbout = checked('genAbout');
   const doExperience = checked('genExperience');
   const roleScope = radioVal('roleScope') || '3';
-  const numRoles = roleScope === 'custom' ? (val('numRoles') || '3') : roleScope;
+  const numRoles = roleScope === 'custom' ? clampNum('numRoles', 1, 20, 3) : roleScope;
   const doSkills = checked('genSkills');
+  const skillScope = radioVal('skillScope') || 'full';
   const doVanity = checked('genVanity');
+  const doOpenToWork = checked('genOpenToWork');
   const doRecs = checked('genRecs');
   const doBanners = checked('genBanners');
-  const numBanners = val('numBanners') || '3';
+  const numBanners = clampNum('numBanners', 1, 5, 3);
   const bannerStyle = radioVal('bannerStyle') || 'decide';
 
   if(!resume && !attachInstead) return null;
-  if(!doHeadline && !doAbout && !doExperience && !doSkills && !doVanity && !doRecs && !doBanners) return null;
+  if(!doHeadline && !doAbout && !doExperience && !doSkills && !doVanity && !doOpenToWork && !doRecs && !doBanners) return null;
 
   const levelLabel = mgmtLevel === 'exec' ? 'an executive (VP/C-suite)' : mgmtLevel === 'upper' ? 'upper-level management (Director and above)' : 'mid-level management';
 
   let lines = [];
-  lines.push(`Please execute this task directly — do the writing now, rather than first describing your plan or asking permission to proceed. If a genuine capability limitation prevents part of this (e.g. no image generation available for the banners), say so plainly and do everything else you actually can.`);
+  lines.push(`Please execute this task directly — do the writing now, rather than first describing your plan or asking permission to proceed. If a genuine capability limitation prevents part of this (e.g. no code execution available for the banners), say so plainly and do everything else you actually can.`);
   lines.push("");
   lines.push(`Act as a LinkedIn profile strategist optimizing my profile specifically for a job search — not general networking content. I am at ${levelLabel}. Every section must be genuinely impactful to three audiences at once: a recruiter scanning quickly, a hiring manager evaluating fit, and LinkedIn's own and any employer's ATS/search indexing — while still reading as a real, specific person rather than a keyword-stuffed template.`);
   lines.push("");
@@ -362,9 +414,26 @@ function buildPrompt(){
     lines.push(currentProfile);
     lines.push("");
   }
+  if(toolsCerts){
+    lines.push(TOOLS_HEADER);
+    lines.push("");
+    lines.push(toolsCerts);
+    lines.push("");
+  }
+  if(jobPostings){
+    lines.push(POSTINGS_HEADER);
+    lines.push("");
+    lines.push(jobPostings);
+    lines.push("");
+  }
   if(targetRole) lines.push(`- Target role/title: ${targetRole}`);
   if(targetIndustry) lines.push(`- Target industry: ${targetIndustry}`);
+  if(locationPref) lines.push(`- Preferred location / work arrangement: ${locationPref}`);
   if(vanityPref) lines.push(`- Preferred custom URL text: ${vanityPref}`);
+  if(!targetRole){
+    lines.push("");
+    lines.push(NO_TARGET_LINE);
+  }
 
   lines.push("");
   lines.push(`Build the following sections. Respect every character limit stated — these are LinkedIn's real current field limits, not suggestions:`);
@@ -399,13 +468,50 @@ function buildPrompt(){
   }
 
   if(doSkills){
-    lines.push(`**${n}. Skills section** (max 80 characters per skill). Not a generic or canned list — research and select the skills that recruiters, hiring managers, and ATS systems are actually searching for right now, specifically for someone targeting ${targetRole || 'my target role'}${targetIndustry ? ` in ${targetIndustry}` : ''}. Ground this in real current signal (live job postings for this role, category/industry skill demand), not a static list memorized from training. Prioritize skills I can genuinely support with something in my actual background — don't list a skill just because it's trending if nothing in my background supports it. If you have live web search available in this session, use it — that's always the better source since it reflects what's actually being searched for right now, not a fixed list. Only if you have no live search access at all (e.g. this prompt is running in a tool without web search), fall back to the reference pool at the very end of this prompt — and even then, treat it only as a pool to select *from*, filtered down to what's targeted and genuinely supported by my background, never pasted in wholesale.`);
+    const roleText = `${targetRole || 'the target roles you identified above'}${targetIndustry ? ` in ${targetIndustry}` : ''}`;
+    const fallbackText = `If you have live web search available in this session, use it — that's always the better source since it reflects what's actually being searched for right now, not a fixed list. Only if you have no live search access at all (e.g. this prompt is running in a tool without web search), fall back to the reference pool at the very end of this prompt — and even then, treat it only as a pool to select *from*, filtered down to what's targeted and genuinely supported by my background, never pasted in wholesale.`;
+    const evidenceSources = `my resume, my LinkedIn profile${toolsCerts ? ', or my tools/certifications list' : ''}`;
+
+    if(skillScope === 'focused'){
+      lines.push(`**${n}. Skills section** (max 80 characters per skill). Not a generic or canned list — research and select the skills that recruiters, hiring managers, and ATS systems are actually searching for right now, specifically for someone targeting ${roleText}. Ground this in real current signal (live job postings for this role, category/industry skill demand), not a static list memorized from training.${jobPostings ? ' Weight the list toward skills that recur across the job postings I provided above.' : ''} Prioritize skills I can genuinely support with something in my actual background — don't list a skill just because it's trending if nothing in my background supports it. ${fallbackText}`);
+    } else {
+      const writingOtherSections = doHeadline || doAbout || doExperience;
+      const demandText = jobPostings
+        ? `First, count which skills and keywords appear across the job postings I provided and treat that count as the strongest demand signal. Then supplement it with live research on current postings and hiring trends for ${roleText}.`
+        : `I haven't provided job postings — this may be the first step in my search — so research current demand yourself: live job postings and hiring trends for ${roleText}.`;
+      lines.push(`**${n}. Skills section — full 100-skill build** (LinkedIn allows up to 100 skills; max 80 characters per skill). Build the most complete skills list my real background can support, ranked so I know what to add first. It needs to work for recruiters filtering LinkedIn Recruiter searches by skill, hiring managers judging fit, and LinkedIn's own job-matching.
+   - **Demand signal:** ${demandText} ${fallbackText}
+   - **Evidence rule:** every skill must trace to something specific in ${evidenceSources}. A skill that's in demand but has no evidence goes in the Gaps list, never the main list.
+   - **Use LinkedIn's standard skill names** — the wording that appears in LinkedIn's skill picker and in job postings, not my resume's shorthand (e.g. "Key Performance Indicators" rather than "KPIs").
+   - **Rank into four tiers:**
+     - Tier 1 (about the top 25): core skills for my target role with strong evidence — the ones to add first.
+     - Tier 2 (about 26-60): supporting skills for the role, with evidence.
+     - Tier 3 (about 61-85): specific tools, platforms, systems, standards, and methods proven in my background.
+     - Tier 4 (about 86-100): search-coverage skills — legitimate alternate names recruiters also search for (only when the alternate is a genuinely distinct search term, not a near-duplicate), plus differentiators that set me apart.
+   - **Never pad.** If my background honestly supports fewer than 100 strong skills, stop there, say how many slots remain, and tell me what I'd need to document to earn more.
+   - **Format:** a table with columns # | Skill | Tier | Demand signal (High / Medium / Niche${jobPostings ? ', plus how many of my postings mention it' : ''}) | Evidence (where in my background) | Attach to (which position, education entry, or certification on my profile to link it to — LinkedIn lets you associate each skill with specific entries, and Tier 1 skills should be attached to 2+ entries where honest). End with a count by tier.
+   - **Top 5 to feature:** the 5 skills to show as my Top Skills, with one line on why each.${currentProfile || attachInstead ? `
+   - **Remove or de-prioritize:** skills currently on my profile that are outdated, generic (e.g. "Microsoft Office"), or off-target for my target role, and why.` : ''}
+   - **Gaps:** in-demand skills for my target role that I don't currently show. For each, say whether I likely have it but just didn't document it (ask me a short yes/no question to confirm) or it's a real gap (suggest the fastest credible way to close it — a course, certification, or project). Number the confirmation questions Q1, Q2, Q3… and end the Gaps section with: "Reply with your answers (e.g. Q1: yes — [one line of detail], Q2: no) and I'll update your list."
+   - **Keyword consistency:** ${writingOtherSections ? 'make sure my top 10 skills also appear naturally in the Headline, About, and Experience sections you write in this response.' : 'tell me where my top 10 skills should also appear in my headline, About section, and experience descriptions.'}
+   - **Copy-ready list:** after the table, repeat every skill as a plain one-per-line list in the order I should add them, so I can enter them quickly. Note that adding Tiers 1 and 2 first gives the most search value for the effort.`);
+    }
     lines.push("");
     n++;
   }
 
   if(doVanity){
     lines.push(`**${n}. Custom Vanity URL** (5-30 characters).${vanityPref ? ` I'd prefer something close to "${vanityPref}" if it fits the limit — adjust minimally if needed.` : ' Suggest one based on my actual name.'}`);
+    lines.push("");
+    n++;
+  }
+
+  if(doOpenToWork){
+    lines.push(`**${n}. Open to Work settings** — exactly what to enter in LinkedIn's Open to Work preferences (profile → "Open to" → "Finding a new job"), which recruiters filter on directly:
+   - **Job titles** (LinkedIn allows up to 5): the titles recruiters actually search for that my background credibly supports — my target title plus close, common variants employers post under. No title I couldn't credibly land.
+   - **Location types and locations** (on-site / hybrid / remote): ${locationPref ? `based on my stated preference: ${locationPref}.` : `I haven't stated a preference — leave a clearly marked placeholder and flag it for me to fill in, rather than guessing.`}
+   - **Start date and employment types:** suggest sensible defaults and tell me to adjust them to my situation.
+   - **Visibility:** explain the trade-off between "Recruiters only" and "All LinkedIn members" (which adds the green #OpenToWork photo frame) for someone at my level, including LinkedIn's own caveat that it can't guarantee recruiters at my current employer won't see a recruiters-only setting. Recommend one, with your reasoning — the choice is mine.`);
     lines.push("");
     n++;
   }
@@ -430,7 +536,7 @@ function buildPrompt(){
     n++;
   }
 
-  lines.push(`Output format: produce the text sections above (Headline, About, Experience, Skills, Vanity URL, Recommendation Guidance — whichever I've asked for) as a downloadable Word document, not a chat response — proper headings for each section and clean, readable formatting throughout. If banner images were requested, those still come through as separate downloadable .png files regardless of this choice — a Word document can't contain them as editable images in the way LinkedIn needs.`);
+  lines.push(`Output format: produce the text sections above (Headline, About, Experience, Skills, Vanity URL, Open to Work, Recommendation Guidance — whichever I've asked for) as a downloadable Word document, not a chat response — proper headings for each section and clean, readable formatting throughout${doSkills && skillScope === 'full' ? ', with the skills table built as a real Word table' : ''}. If banner images were requested, those still come through as separate downloadable .png files regardless of this choice — a Word document can't contain them as editable images in the way LinkedIn needs.`);
   lines.push("");
 
   if(doSkills){
@@ -448,6 +554,7 @@ function buildPrompt(){
   lines.push(`- Never invent a number, dollar figure, percentage, metric, title, employer, or credential that isn't genuinely supported by what I gave you above. A strong qualitative bullet is always an acceptable substitute for a fabricated metric.`);
   lines.push(`- Never write recommendation text and present it as if a real colleague wrote it.`);
   lines.push(`- Never claim a specific skill is "the #1 most in-demand skill on LinkedIn" or similar unless you can actually ground that in real, current search results — don't recite a memorized list as if it were current fact.`);
+  if(jobPostings) lines.push(`- The job postings I provided are demand signal only. Never treat something in a posting as evidence that I've done it.`);
   lines.push(`- State the character count for each section you write, so I can confirm it's within LinkedIn's real limit before I paste it in.`);
 
   return lines.join("\n");
@@ -471,6 +578,26 @@ function toggleBannerSubField(){
   document.getElementById('bannerSubField').style.display = checked('genBanners') ? 'block' : 'none';
 }
 
+function toggleSkillsSubField(){
+  document.getElementById('skillsSubField').style.display = checked('genSkills') ? 'block' : 'none';
+  const showFollowUp = checked('genSkills') && radioVal('skillScope') === 'full';
+  document.getElementById('followUpCard').style.display = showFollowUp ? 'block' : 'none';
+}
+
+const FOLLOW_UP_PROMPT = `Here are my answers to your gap questions:
+
+Q1: [yes / no] — [if yes, one line on where or how I used it]
+Q2: [yes / no] — [ ]
+Q3: [yes / no] — [ ]
+(add or delete lines to match the number of questions you asked)
+
+Now update my skills list:
+- Add every skill I answered "yes" to, in the right tier, using the detail I gave as its evidence, and say which position to attach it to.
+- Don't add anything I answered "no" to, and don't add any new skills I haven't given you evidence for.
+- Keep the total at 100 or fewer. If a new skill outranks an existing one, move the weaker one down or off the list and tell me which.
+- If any new skill belongs in my top 10, update the Headline and About wording to include it, and restate their character counts.
+- Give me the updated copy-ready list with new skills marked (NEW), and regenerate the Word document with the changes.`;
+
 document.querySelectorAll('input, textarea').forEach(el => {
   el.addEventListener('input', render);
   el.addEventListener('change', render);
@@ -483,6 +610,22 @@ toggleRoleScopeField();
 
 document.getElementById('genBanners').addEventListener('change', toggleBannerSubField);
 toggleBannerSubField();
+
+document.getElementById('genSkills').addEventListener('change', toggleSkillsSubField);
+document.querySelectorAll('input[name="skillScope"]').forEach(el => el.addEventListener('change', toggleSkillsSubField));
+document.getElementById('followUpText').textContent = FOLLOW_UP_PROMPT;
+toggleSkillsSubField();
+
+document.getElementById('copyFollowUpBtn').addEventListener('click', () => {
+  navigator.clipboard.writeText(FOLLOW_UP_PROMPT).then(() => {
+    const btn = document.getElementById('copyFollowUpBtn');
+    const original = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = original, 1500);
+  }).catch(() => {
+    alert('Clipboard blocked by your browser — select the text in the box and copy it manually.');
+  });
+});
 
 document.getElementById('copyBtn').addEventListener('click', () => {
   const prompt = buildPrompt();
@@ -521,7 +664,10 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   document.getElementById('genAbout').checked = true;
   document.getElementById('genExperience').checked = true;
   document.getElementById('genSkills').checked = true;
+  document.querySelector('input[name="skillScope"][value="full"]').checked = true;
+  toggleSkillsSubField();
   document.getElementById('genVanity').checked = true;
+  document.getElementById('genOpenToWork').checked = true;
   document.getElementById('genRecs').checked = false;
   document.getElementById('genBanners').checked = false;
   document.getElementById('numBanners').value = '3';
@@ -571,8 +717,12 @@ const LOAD_HEADER_ANCHORS = [
   { prefix: `I've attached my resume and/or my downloaded LinkedIn profile PDF directly to this message`, key: null },
   { prefix: 'Here is my resume / professional background:', key: '__resumeHeader' },
   { prefix: 'Here is my current LinkedIn profile text, for context on my existing voice and any details here not on my resume:', key: '__profileHeader' },
+  { prefix: TOOLS_HEADER, key: null },
+  { prefix: POSTINGS_HEADER, key: null },
+  { prefix: `I haven't settled on a target role yet`, key: null },
   { prefix: '- Target role/title: ', key: 'targetRole' },
   { prefix: '- Target industry: ', key: 'targetIndustry' },
+  { prefix: '- Preferred location / work arrangement: ', key: 'locationPref' },
   { prefix: '- Preferred custom URL text: ', key: 'vanityPref' },
 ];
 
@@ -600,13 +750,19 @@ function parseLoadedPrompt(text){
 
   const stopMarkers = [
     'Here is my current LinkedIn profile text',
+    TOOLS_HEADER,
+    POSTINGS_HEADER,
     '- Target role/title:',
     '- Target industry:',
+    '- Preferred location / work arrangement:',
     '- Preferred custom URL text:',
+    `I haven't settled on a target role yet`,
     'Build the following sections.',
   ];
   const resume = loadExtractBlock(text, 'Here is my resume / professional background:', stopMarkers);
   const currentProfile = loadExtractBlock(text, 'Here is my current LinkedIn profile text, for context on my existing voice and any details here not on my resume:', stopMarkers);
+  const toolsCerts = loadExtractBlock(text, TOOLS_HEADER, stopMarkers);
+  const jobPostings = loadExtractBlock(text, POSTINGS_HEADER, stopMarkers);
 
   const cutMarker = 'Build the following sections.';
   const raw = loadGenericParse(text, LOAD_HEADER_ANCHORS, cutMarker);
@@ -620,16 +776,18 @@ function parseLoadedPrompt(text){
   }
 
   const data = {
-    resume, currentProfile, attachInstead,
+    resume, currentProfile, attachInstead, toolsCerts, jobPostings,
     targetRole: raw.targetRole || '',
     targetIndustry: raw.targetIndustry || '',
     vanityPref: raw.vanityPref || '',
+    locationPref: raw.locationPref || '',
     mgmtLevel,
     genHeadline: false, numHeadlines: '3',
     genAbout: false,
     genExperience: false, roleScope: '3', numRoles: '3',
-    genSkills: false,
+    genSkills: false, skillScope: 'full',
     genVanity: false,
+    genOpenToWork: false,
     genRecs: false,
     genBanners: false, numBanners: '3', bannerStyle: 'decide',
   };
@@ -657,8 +815,13 @@ function parseLoadedPrompt(text){
     }
   }
 
-  data.genSkills = text.includes(`Skills section** (max 80 characters per skill). Not a generic or canned list`);
+  if(text.includes(`Skills section — full 100-skill build**`)){
+    data.genSkills = true; data.skillScope = 'full';
+  } else if(text.includes(`Skills section** (max 80 characters per skill). Not a generic or canned list`)){
+    data.genSkills = true; data.skillScope = 'focused';
+  }
   data.genVanity = text.includes(`Custom Vanity URL** (5-30 characters).`);
+  data.genOpenToWork = text.includes(`Open to Work settings** — exactly what to enter`);
   data.genRecs = text.includes(`Recommendation Request Guidance** — do NOT write recommendation text`);
 
   const bannerCountM = text.match(/— generate (\S+) (?:distinct, )?downloadable \.png banner image/);
@@ -684,8 +847,11 @@ function populateLoadedPrompt(data){
   document.getElementById('attachInstead').checked = data.attachInstead;
   document.getElementById('targetRole').value = data.targetRole;
   document.getElementById('targetIndustry').value = data.targetIndustry;
+  document.getElementById('toolsCerts').value = data.toolsCerts;
+  document.getElementById('jobPostings').value = data.jobPostings;
   document.querySelector(`input[name="mgmtLevel"][value="${data.mgmtLevel}"]`).checked = true;
   document.getElementById('vanityPref').value = data.vanityPref;
+  document.getElementById('locationPref').value = data.locationPref;
 
   document.getElementById('genHeadline').checked = data.genHeadline;
   document.getElementById('numHeadlines').value = data.numHeadlines;
@@ -694,7 +860,9 @@ function populateLoadedPrompt(data){
   document.querySelector(`input[name="roleScope"][value="${data.roleScope}"]`).checked = true;
   document.getElementById('numRoles').value = data.numRoles;
   document.getElementById('genSkills').checked = data.genSkills;
+  document.querySelector(`input[name="skillScope"][value="${data.skillScope}"]`).checked = true;
   document.getElementById('genVanity').checked = data.genVanity;
+  document.getElementById('genOpenToWork').checked = data.genOpenToWork;
   document.getElementById('genRecs').checked = data.genRecs;
   document.getElementById('genBanners').checked = data.genBanners;
   document.getElementById('numBanners').value = data.numBanners;
@@ -702,6 +870,7 @@ function populateLoadedPrompt(data){
 
   toggleRoleScopeField();
   toggleBannerSubField();
+  toggleSkillsSubField();
   render();
 }
 

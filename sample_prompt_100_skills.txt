@@ -1,0 +1,115 @@
+Please execute this task directly — do the writing now, rather than first describing your plan or asking permission to proceed. If a genuine capability limitation prevents part of this (e.g. no code execution available for the banners), say so plainly and do everything else you actually can.
+
+Act as a LinkedIn profile strategist optimizing my profile specifically for a job search — not general networking content. I am at mid-level management. Every section must be genuinely impactful to three audiences at once: a recruiter scanning quickly, a hiring manager evaluating fit, and LinkedIn's own and any employer's ATS/search indexing — while still reading as a real, specific person rather than a keyword-stuffed template.
+
+Here is my resume / professional background:
+
+Priya Nair
+Operations Manager, BrightPath Fulfillment (2021-present)
+- Manage a team of 8 across 2 fulfillment centers handling e-commerce order processing and shipping
+- Reduced average order processing time by 22% by redesigning pick-path routing in both facilities
+- Led a new warehouse management system (WMS) rollout at our primary facility, delivered on schedule
+- Own vendor relationships for packaging suppliers and 3 regional shipping carriers
+
+Operations Supervisor, QuickShip Logistics (2017-2021)
+- Supervised warehouse floor operations for a 3rd-party logistics facility, promoted from Shift Supervisor in 2018
+- Improved on-time shipment rate from 91% to 97% over 3 years through process and staffing changes
+- No formally tracked cost-savings metric for this role - focus was on-time performance and floor execution
+
+A.A.S. Logistics and Supply Chain Management, Community College of Denver
+
+Tools, platforms, certifications, and methods I've genuinely used (count these as evidence of my background, on the same footing as my resume):
+
+Manhattan WMS, Excel (pivot tables, VLOOKUP), Kronos workforce scheduling, OSHA 30
+
+- Target role/title: Senior Operations Manager
+- Target industry: e-commerce fulfillment
+- Preferred location / work arrangement: Denver metro area, on-site or hybrid
+
+Build the following sections. Respect every character limit stated — these are LinkedIn's real current field limits, not suggestions:
+
+**1. Headline** — give me 3 distinct options to choose from (max 220 characters desktop / 240 mobile each — but only roughly the first 70 characters show in search results and mobile previews, so front-load your strongest role + value signal there, and use the remaining space for additional searchable keywords a recruiter or hiring manager would actually type for this role). Recruiter- and hiring-manager-searchable, not just a job title. Each option should take a genuinely different angle — for example, one led by a specific accomplishment/number, one led by role + target keywords, one led by scope/seniority — not 3 minor rewordings of the same line. Label each option (Option 1, Option 2, etc.) and state its own character count.
+
+**2. About / Summary section** (max 2,600 characters). Structure: two short paragraphs followed by three bullets, followed by contact information.
+   - **Paragraph 1:** who I am and what I do, written to grab a recruiter's attention. LinkedIn only shows roughly the first 200-300 characters before the "See more" cutoff — the opening sentence of this paragraph has to work as a genuine hook on its own, not just a topic sentence.
+   - **Paragraph 2:** how I help — why someone should want me, not just what my job title was.
+   - **Three bullets:** each one supporting and expanding on how I deliver. Where a real, specific number, dollar figure, or percentage exists in my background for that particular point, lead with it. Where it genuinely doesn't, write a strong, specific qualitative bullet instead — do not invent a metric to fit the format.
+   - **Contact info line:** close with how to reach me.
+
+**3. Experience section rewrites** for my 3 most relevant/recent positions. For each:
+   - **Job Title** (max 100 characters): use my actual title from my background, then use remaining characters to add a more current/searchable framing of that role if one genuinely applies — never a fabricated title.
+   - **Description** (max 2,000 characters): open with a short description of the company (and the specific department/team where relevant), then three bullets in the same style as the About section bullets above — a real number/dollar/percentage where one genuinely exists for that specific accomplishment, a strong qualitative bullet where it doesn't.
+
+**4. Skills section — full 100-skill build** (LinkedIn allows up to 100 skills; max 80 characters per skill). Build the most complete skills list my real background can support, ranked so I know what to add first. It needs to work for recruiters filtering LinkedIn Recruiter searches by skill, hiring managers judging fit, and LinkedIn's own job-matching.
+   - **Demand signal:** I haven't provided job postings — this may be the first step in my search — so research current demand yourself: live job postings and hiring trends for Senior Operations Manager in e-commerce fulfillment. If you have live web search available in this session, use it — that's always the better source since it reflects what's actually being searched for right now, not a fixed list. Only if you have no live search access at all (e.g. this prompt is running in a tool without web search), fall back to the reference pool at the very end of this prompt — and even then, treat it only as a pool to select *from*, filtered down to what's targeted and genuinely supported by my background, never pasted in wholesale.
+   - **Evidence rule:** every skill must trace to something specific in my resume, my LinkedIn profile, or my tools/certifications list. A skill that's in demand but has no evidence goes in the Gaps list, never the main list.
+   - **Use LinkedIn's standard skill names** — the wording that appears in LinkedIn's skill picker and in job postings, not my resume's shorthand (e.g. "Key Performance Indicators" rather than "KPIs").
+   - **Rank into four tiers:**
+     - Tier 1 (about the top 25): core skills for my target role with strong evidence — the ones to add first.
+     - Tier 2 (about 26-60): supporting skills for the role, with evidence.
+     - Tier 3 (about 61-85): specific tools, platforms, systems, standards, and methods proven in my background.
+     - Tier 4 (about 86-100): search-coverage skills — legitimate alternate names recruiters also search for (only when the alternate is a genuinely distinct search term, not a near-duplicate), plus differentiators that set me apart.
+   - **Never pad.** If my background honestly supports fewer than 100 strong skills, stop there, say how many slots remain, and tell me what I'd need to document to earn more.
+   - **Format:** a table with columns # | Skill | Tier | Demand signal (High / Medium / Niche) | Evidence (where in my background) | Attach to (which position, education entry, or certification on my profile to link it to — LinkedIn lets you associate each skill with specific entries, and Tier 1 skills should be attached to 2+ entries where honest). End with a count by tier.
+   - **Top 5 to feature:** the 5 skills to show as my Top Skills, with one line on why each.
+   - **Gaps:** in-demand skills for my target role that I don't currently show. For each, say whether I likely have it but just didn't document it (ask me a short yes/no question to confirm) or it's a real gap (suggest the fastest credible way to close it — a course, certification, or project). Number the confirmation questions Q1, Q2, Q3… and end the Gaps section with: "Reply with your answers (e.g. Q1: yes — [one line of detail], Q2: no) and I'll update your list."
+   - **Keyword consistency:** make sure my top 10 skills also appear naturally in the Headline, About, and Experience sections you write in this response.
+   - **Copy-ready list:** after the table, repeat every skill as a plain one-per-line list in the order I should add them, so I can enter them quickly. Note that adding Tiers 1 and 2 first gives the most search value for the effort.
+
+**5. Custom Vanity URL** (5-30 characters). Suggest one based on my actual name.
+
+**6. Open to Work settings** — exactly what to enter in LinkedIn's Open to Work preferences (profile → "Open to" → "Finding a new job"), which recruiters filter on directly:
+   - **Job titles** (LinkedIn allows up to 5): the titles recruiters actually search for that my background credibly supports — my target title plus close, common variants employers post under. No title I couldn't credibly land.
+   - **Location types and locations** (on-site / hybrid / remote): based on my stated preference: Denver metro area, on-site or hybrid.
+   - **Start date and employment types:** suggest sensible defaults and tell me to adjust them to my situation.
+   - **Visibility:** explain the trade-off between "Recruiters only" and "All LinkedIn members" (which adds the green #OpenToWork photo frame) for someone at my level, including LinkedIn's own caveat that it can't guarantee recruiters at my current employer won't see a recruiters-only setting. Recommend one, with your reasoning — the choice is mine.
+
+Output format: produce the text sections above (Headline, About, Experience, Skills, Vanity URL, Open to Work, Recommendation Guidance — whichever I've asked for) as a downloadable Word document, not a chat response — proper headings for each section and clean, readable formatting throughout, with the skills table built as a real Word table. If banner images were requested, those still come through as separate downloadable .png files regardless of this choice — a Word document can't contain them as editable images in the way LinkedIn needs.
+
+---
+
+**Fallback skills reference pool (use ONLY if you have no live web search access this session):**
+
+Leadership & People
+Team Leadership, People Management, Cross-Functional Leadership, Talent Development, Coaching & Mentoring, Performance Management, Organizational Leadership, Change Management, Executive Leadership, Succession Planning
+
+Strategy & Operations
+Strategic Planning, Business Strategy, Operational Excellence, Process Improvement, Business Process Optimization, Continuous Improvement, Lean Six Sigma, Risk Management, Vendor Management, Supply Chain Management, Procurement, Contract Negotiation, P&L Management, Budget Management, Cost Reduction Strategy
+
+Project & Program Management
+Project Management, Program Management, Agile Methodology, Scrum, Portfolio Management, Stakeholder Management, Resource Planning, Cross-Functional Collaboration
+
+Data & Analytics
+Data Analysis, Data-Driven Decision Making, Business Intelligence, KPI Development & Tracking, Forecasting, Financial Modeling, Reporting & Analytics, SQL, Power BI, Tableau, Advanced Excel
+
+Digital & Technical
+Digital Transformation, ERP Systems (SAP/Oracle), CRM Systems (Salesforce), Cloud Computing Fundamentals, Cybersecurity Awareness, AI & Automation Tools, Systems Implementation, IT Project Management
+
+Sales & Customer
+Sales Strategy, Business Development, Account Management, Client Relationship Management, Customer Success, Negotiation, Revenue Growth Strategy, Go-to-Market Strategy
+
+Marketing & Brand
+Marketing Strategy, Brand Management, Digital Marketing, Content Strategy, Market Research, Product Marketing, Social Media Strategy, SEO/SEM
+
+HR & Talent
+Talent Acquisition, Workforce Planning, Employee Engagement, Diversity, Equity & Inclusion, Organizational Development, HR Compliance, Compensation & Benefits Strategy
+
+Finance & Business Acumen
+Financial Analysis, Financial Planning & Analysis (FP&A), Revenue Forecasting, Cost Accounting, Investment Analysis, Mergers & Acquisitions (M&A)
+
+Operations-Specific
+Inventory Management, Logistics Management, Warehouse Management Systems (WMS), Manufacturing Operations, Quality Assurance, Supplier Relations, Distribution Strategy
+
+Communication & Influence
+Executive Communication, Public Speaking, Presentation Skills, Cross-Cultural Communication, Conflict Resolution, Influencing Without Authority
+
+Innovation & Growth
+Innovation Management, Product Development, Strategic Partnerships, Market Expansion Strategy, Competitive Analysis, Growth Strategy
+
+This pool is generic across management functions and industries — it is not targeted to my specific role, and it is a last-resort substitute for live research, not a shortcut around it. If you used this pool, say so plainly next to the Skills section (e.g. "live search wasn't available, so this list was cross-checked against this fallback pool") so I know which source it came from.
+
+Non-negotiable rules, no exceptions:
+- Never invent a number, dollar figure, percentage, metric, title, employer, or credential that isn't genuinely supported by what I gave you above. A strong qualitative bullet is always an acceptable substitute for a fabricated metric.
+- Never write recommendation text and present it as if a real colleague wrote it.
+- Never claim a specific skill is "the #1 most in-demand skill on LinkedIn" or similar unless you can actually ground that in real, current search results — don't recite a memorized list as if it were current fact.
+- State the character count for each section you write, so I can confirm it's within LinkedIn's real limit before I paste it in.
